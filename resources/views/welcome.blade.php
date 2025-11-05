@@ -32,7 +32,19 @@
           <label for="email" class="form-label">Email</label>
           <input type="email" class="form-control" id="email" name="email" required>
       </div>
-  
+      
+        
+        <div class="mb-3">
+          <label for="sesso">Sesso</label>
+          <select name="sesso" class="form-select" autocomplete="off">
+            <option disabled selected>Seleziona Genere</option>
+            @foreach($sesso as $s)
+                <option value="{{ $s->id }}">{{ $s->genere }}</option>
+            @endforeach
+        </select>
+         
+      </div>
+
       <div class="mb-3">
           <label for="password" class="form-label">Password</label>
           <input type="password" id="password" name="password" class="form-control" required>

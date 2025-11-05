@@ -29,6 +29,14 @@
         <label>Email:</label>
         <input type="email" name="email" value="{{ old('email', $user->email) }}"><br><br>
 
+        <label for="sesso">Sesso</label>
+        <label for="sesso">Sesso:</label>
+        <select name="sesso" id="sesso" class="form-select" aria-label="Default select example">
+            <option value="Maschio" {{ old('sesso', $user->sesso) == 'Maschio' ? 'selected' : '' }}>Maschio</option>
+            <option value="Femmina" {{ old('sesso', $user->sesso) == 'Femmina' ? 'selected' : '' }}>Femmina</option>
+        </select>
+        
+
         <label>Nuova password (opzionale):</label>
         <input type="password" name="password" placeholder="Lascia vuoto per non cambiare"><br><br>
 

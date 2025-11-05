@@ -4,25 +4,43 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use App\Models\Sesso;
 
 class HomeController extends Controller
 {
-    public function store(Request $request)
+
+    public function create()
     {
-        $rules = [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'nullable|min:6'
-        ];
+ 
+        $sesso = Sesso::orderBy('id', 'desc')->get();
 
+    return view('welcome', compact('sesso'));
 
-          // Validazione della richiesta
-        $request->validate($rules);
-     
-        User::create($request->only(['name', 'email','password']));
-        return view('welcome')->with('success', 'Post created successfully!');
     }
+
+    public function store(Request $request)
+{
+    $rules = [
+        'name' => 'required',
+        'email' => 'required|email|unique:users,email',
+        'sesso' => 'required',
+        'password' => 'nullable|min:6'
+    ];
+
+    // Validazione della richiesta
+    $validatedData = $request->validate($rules);
+
+    // Criptiamo la password solo se presente
+    if (!empty($validatedData['password'])) {
+        $validatedData['password'] = bcrypt($validatedData['password']);
+    }
+
+    // Creazione utente con tutti i campi validati
+    User::create($validatedData);
+
+    return redirect()->route('welcome')->with('success', 'Utente creato con successo!');
+}
+
 
     public function index()
     {

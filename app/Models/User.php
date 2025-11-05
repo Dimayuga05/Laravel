@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'sesso_id',
         'password',
     ];
 
@@ -45,4 +46,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function sesso()
+{
+    return $this->belongsTo(Sesso::class);
+}
+
 }
