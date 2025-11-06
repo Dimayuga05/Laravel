@@ -23,7 +23,7 @@ class HomeController extends Controller
     $rules = [
         'name' => 'required',
         'email' => 'required|email|unique:users,email',
-        'sesso' => 'required',
+        'sesso_id' => 'required',
         'password' => 'nullable|min:6'
     ];
 
@@ -55,25 +55,27 @@ class HomeController extends Controller
     {
         // Cerca l’utente in base al campo 'name'
         $user = User::where('id', $id)->firstOrFail();
-
-        return view('edit', compact('user'));
+        $sesso = Sesso::all();
+        return view('edit', compact('user','sesso'));
     }
 
     public function update(Request $request, $id)
     {
         // 1️⃣ Trova l’utente da modificare
         $user = User::where('id', $id)->firstOrFail();
-
+        
         // 2️⃣ Valida i dati ricevuti dal form
         $validatedData = $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email',
+            'sesso_id' => 'required',
             'password' => 'nullable|min:6',
         ]);
 
         // 3️⃣ Aggiorna i campi
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
+        $user->sesso_id = $validatedData['sesso_id'];
 
         if (!empty($validatedData['password'])) {
             $user->password = bcrypt($validatedData['password']); // 🔒 Cripta la password

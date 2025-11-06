@@ -35,8 +35,8 @@
       
         
         <div class="mb-3">
-          <label for="sesso">Sesso</label>
-          <select name="sesso" class="form-select" autocomplete="off">
+          <label for="sesso_id">Sesso</label>
+          <select name="sesso_id" class="form-select" autocomplete="off">
             <option disabled selected>Seleziona Genere</option>
             @foreach($sesso as $s)
                 <option value="{{ $s->id }}">{{ $s->genere }}</option>

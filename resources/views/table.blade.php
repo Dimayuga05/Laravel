@@ -9,40 +9,42 @@
   </head>
   <body>
     <div class="container my-5">
-        <div class="d-flex justify-content-center">
-          <table class="table table-bordered table-striped table-hover text-center align-middle w-75">
-            <thead class="table-dark">
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Password</th>
-                <th colspan="2">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach($users as $user)
-              <tr>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
-                <td>{{ $user->sesso}}</td>
-                <td>{{ $user->password }}</td>
-                <td>
-                  <a href="{{ route('users.edit', ['id' => $user->id]) }}" class="btn btn-sm btn-primary">
-                    Modifica
-                  </a>
-                </td>
-                <td>
-                  <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Sei sicuro di voler eliminare questo utente?');">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-danger">Elimina</button>
-                  </form>
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-        </div>
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover text-center align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Sesso</th>
+              <th scope="col">Password</th>
+              <th colspan="2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($users as $user)
+            <tr>
+              <td>{{ $user->name }}</td>
+              <td>{{ $user->email }}</td>
+              <td>{{ $user->sesso->genere ?? 'N/D'}}</td>
+              <td>{{ $user->password }}</td>
+              <td>
+                <a href="{{ route('users.edit', ['id' => $user->id]) }}" class="btn btn-sm btn-primary">
+                  Modifica
+                </a>
+              </td>
+              <td>
+                <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Sei sicuro di voler eliminare questo utente?');">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="btn btn-sm btn-danger">Elimina</button>
+                </form>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
+      
       
         <div class="text-center mt-3">
           <a class="btn btn-success" href="{{ route('welcome') }}">Crea un nuovo utente</a>

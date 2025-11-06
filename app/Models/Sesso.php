@@ -18,10 +18,13 @@ class Sesso extends Model
      * @var list<string>
      */
 
-     protected $table = 'sesso';
+    protected $table = 'sesso';
     protected $fillable = [
         'genere', 
     ];
 
-   
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

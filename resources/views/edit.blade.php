@@ -29,12 +29,17 @@
         <label>Email:</label>
         <input type="email" name="email" value="{{ old('email', $user->email) }}"><br><br>
 
-        <label for="sesso">Sesso</label>
+        
         <label for="sesso">Sesso:</label>
-        <select name="sesso" id="sesso" class="form-select" aria-label="Default select example">
-            <option value="Maschio" {{ old('sesso', $user->sesso) == 'Maschio' ? 'selected' : '' }}>Maschio</option>
-            <option value="Femmina" {{ old('sesso', $user->sesso) == 'Femmina' ? 'selected' : '' }}>Femmina</option>
+        <select name="sesso_id" class="form-select" autocomplete="off" required>
+            <option disabled {{ old('sesso_id', $user->sesso_id ?? '') == '' ? 'selected' : '' }}>Seleziona Genere</option>
+            @foreach($sesso as $s)
+                <option value="{{ $s->id }}" {{ old('sesso_id', $user->sesso_id ?? '') == $s->id ? 'selected' : '' }}>
+                    {{ $s->genere }}
+                </option>
+            @endforeach
         </select>
+        
         
 
         <label>Nuova password (opzionale):</label>

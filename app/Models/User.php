@@ -47,9 +47,9 @@ class User extends Authenticatable
         ];
     }
 
-    public function sesso()
+
+public function sesso()
 {
     return $this->belongsTo(Sesso::class);
 }
-
 }
